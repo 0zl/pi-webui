@@ -361,7 +361,7 @@ const SLASH_HANDLERS = {
     }
     ctrl.session.setThinkingLevel(level);
     await ctrl.sendState();
-    return { thinkingLevel: level };
+    return { toast: `thinking level: ${level}` };
   },
   login: async (ctrl, arg) => {
     const parts = String(arg || "").trim().split(/\s+/);

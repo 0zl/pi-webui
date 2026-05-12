@@ -1248,6 +1248,10 @@ function showPromptModal(title, initialValue, onSubmit) {
 
 async function handleSlashResult(data) {
   if (!data) return;
+  if (data.toast) {
+    showToast(data.toast, "info");
+    return;
+  }
   if (data.copyText) {
     try {
       await navigator.clipboard.writeText(data.copyText);
