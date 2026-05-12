@@ -283,6 +283,10 @@ const WEBUI_SLASH_COMMANDS = {
     description: "switch the working directory",
     argumentHint: "[path]",
   },
+  think: {
+    description: "set thinking level (off, minimal, low, medium, high, xhigh)",
+    argumentHint: "<level>",
+  },
 };
 
 const SLASH_HANDLERS = {
