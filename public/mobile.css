@@ -4,6 +4,20 @@
  */
 @media (max-width: 480px) {
 
+  /* ── Touch-friendly defaults ─────────────────── */
+  button,
+  select,
+  .session-row,
+  .slash-item,
+  .modal-close {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .modal-body {
+    overscroll-behavior: contain;
+  }
+
   /* ── Log area ───────────────────────────────── */
   .log {
     padding: 0.4rem;
@@ -161,18 +175,38 @@
     align-items: stretch;
   }
 
+  @supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.5);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+
   .modal {
     width: 100%;
+    max-height: 100dvh;
     max-height: 100vh;
     border: none;
   }
 
   .modal-header {
     padding: 0.3rem 0.5rem;
+    padding-right: env(safe-area-inset-right, 0.5rem);
+    padding-left: env(safe-area-inset-left, 0.5rem);
+  }
+
+  .modal-close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .modal-close::after {
+    font-size: 18px;
   }
 
   .modal-search {
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .modal-title {
@@ -202,6 +236,10 @@
 
   .modal-empty {
     padding: 0.4rem;
+  }
+
+  .modal-body {
+    -webkit-overflow-scrolling: touch;
   }
 
   /* ── Ext custom overlay ────────────────────── */

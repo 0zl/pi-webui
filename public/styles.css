@@ -742,6 +742,33 @@ body.drag-active .composer-wrapper {
   font-size: 12px;
 }
 
+.modal-close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.modal-close::after {
+  content: "\2715";
+  font-size: 14px;
+  line-height: 1;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: var(--text);
+  background: rgba(128, 128, 128, 0.15);
+  outline: none;
+}
+
 .modal:not(.text-mode):not(.prompt-mode):not(.confirm-mode) .modal-title {
   display: none;
 }

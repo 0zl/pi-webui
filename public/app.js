@@ -9,6 +9,7 @@ const modalSearch = document.getElementById("modal-search");
 const modalBody = document.getElementById("modal-body");
 const modalTitle = document.getElementById("modal-title");
 const modalDialog = modal.querySelector(".modal");
+const modalClose = document.getElementById("modal-close");
 const statusLeft = document.getElementById("status-left");
 const statusRight = document.getElementById("status-right");
 const statusCwd = document.getElementById("status-cwd");
@@ -928,6 +929,11 @@ modal.addEventListener("click", (event) => {
     closeModal();
     input.focus();
   }
+});
+
+modalClose.addEventListener("click", () => {
+  closeModal();
+  input.focus();
 });
 
 function formatRelativeTime(iso) {
