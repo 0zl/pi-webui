@@ -260,7 +260,7 @@
   }
 
   .ext-custom-output {
-    font-size: 12px;
+    font-size: 11px;
     flex: 1;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
