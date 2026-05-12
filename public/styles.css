@@ -160,7 +160,21 @@ input:focus {
 .status-mode { color: var(--muted); }
 .status-name { color: var(--user); }
 .status-model { color: var(--accent); }
-.status-thinking { color: var(--tool); }
+.status-thinking {
+  color: var(--tool);
+  cursor: pointer;
+  border-bottom: 1px dotted transparent;
+  transition: border-color 0.15s;
+}
+
+.status-thinking:hover {
+  border-bottom-color: var(--tool);
+}
+
+.status-thinking::before {
+  content: "◇ ";
+  font-size: 10px;
+}
 
 /* ── Composer ───────────────────────────────────── */
 

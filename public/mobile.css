@@ -149,9 +149,16 @@
   }
 
   .status-right .status-name,
-  .status-right .status-mode,
-  .status-right .status-thinking {
+  .status-right .status-mode {
     display: none;
+  }
+
+  .status-right .status-thinking {
+    display: inline;
+  }
+
+  .status-thinking {
+    padding: 0.25rem 0.15rem;
   }
 
   /* ── Slash menu ────────────────────────────── */

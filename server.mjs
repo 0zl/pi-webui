@@ -349,9 +349,19 @@ const SLASH_HANDLERS = {
     return {
       showText: {
         title: "Settings",
-        body: lines.join("\n") + "\n\nManage settings with /scoped-models, /model, etc., or via the CLI.",
+        body: lines.join("\n") + "\n\nManage settings with /scoped-models, /model, /think, etc., or via the CLI.",
       },
     };
+  },
+  think: async (ctrl, arg) => {
+    const level = String(arg || "").trim().toLowerCase();
+    const valid = ["off", "minimal", "low", "medium", "high", "xhigh"];
+    if (!valid.includes(level)) {
+      throw new Error(`Usage: /think <level> \u2014 one of: ${valid.join(", ")}`);
+    }
+    ctrl.session.setThinkingLevel(level);
+    await ctrl.sendState();
+    return { thinkingLevel: level };
   },
   login: async (ctrl, arg) => {
     const parts = String(arg || "").trim().split(/\s+/);

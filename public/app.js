@@ -1955,5 +1955,32 @@ function appendOptimisticUserMessage(text, images) {
   renderLog();
 }
 
+// Click thinking level in the status bar to show picker.
+statusRight.addEventListener("click", (event) => {
+  const target = event.target;
+  if (!target.classList || !target.classList.contains("status-thinking")) return;
+  const s = currentSessionState;
+  if (!s) return;
+
+  const levels = ["off", "minimal", "low", "medium", "high", "xhigh"];
+  const current = s.thinkingLevel || "off";
+  const supportsThinking = s.model?.reasoning ?? false;
+
+  const items = levels.map((level) => ({
+    target: level,
+    search: level,
+    html: `<span>${escapeHtml(level)}</span>`
+      + (level === current ? ` <span style="color:var(--accent)">\u25c9</span>` : "")
+      + (!supportsThinking && level !== "off" ? ` <span style="color:var(--muted);font-size:11px">(n/a)</span>` : ""),
+  }));
+
+  openModal(items, {
+    onSelect: (item) => {
+      logger.info("thinking level set", { level: item.target });
+      send({ type: "slash_command", name: "think", arg: item.target });
+    },
+  });
+});
+
 input.focus();
 connect();
