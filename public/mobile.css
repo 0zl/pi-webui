@@ -1,0 +1,231 @@
+/* ── Mobile portrait overrides ────────────────────
+ * Unaffected: desktop/tablet widths > 480px see zero changes.
+ * All rules scoped under the single breakpoint below.
+ */
+@media (max-width: 480px) {
+
+  /* ── Log area ───────────────────────────────── */
+  .log {
+    padding: 0.4rem;
+  }
+
+  .message {
+    margin: 0 0 0.5rem;
+  }
+
+  .message h3 {
+    font-size: 12px;
+    margin: 0 0 0.15rem;
+  }
+
+  .message-body {
+    padding-left: 0.5rem;
+  }
+
+  /* ── Thinking / tool blocks ─────────────────── */
+  .thinking-block {
+    padding: 0 0.4rem;
+    margin: 0.3rem 0;
+    font-size: 11px;
+  }
+
+  .tool-block,
+  .tool-result-block {
+    padding: 0 0.4rem;
+    margin: 0.3rem 0;
+  }
+
+  /* code blocks — tighter padding, smaller font */
+  .message-body pre code {
+    padding: 0.4rem 0.5rem;
+    font-size: 12px;
+  }
+
+  .message-body pre .code-header {
+    padding: 0.15rem 0.4rem;
+    font-size: 11px;
+  }
+
+  /* ── Composer ───────────────────────────────── */
+  .composer {
+    padding: 0.35rem 0.35rem 0.35rem 1.4rem;
+  }
+
+  .composer::before {
+    top: 0.35rem;
+    left: 0.5rem;
+    line-height: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .composer textarea {
+    height: 32px;
+    min-height: 32px;
+    max-height: 160px;
+    padding: 0.35rem 0.35rem;
+    font-size: 13px;
+  }
+
+  .icon-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .composer-attachments {
+    padding: 0.35rem 0.5rem 0;
+    gap: 0.3rem;
+  }
+
+  .attachment-chip img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .attachment-remove {
+    width: 14px;
+    height: 14px;
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  /* ── Status bar — both rows, CWD + model ──── */
+  .statusbar {
+    padding: 0.15rem 0.5rem;
+    gap: 0;
+    font-size: 11px;
+  }
+
+  .statusbar-row {
+    min-height: 0;
+  }
+
+  .status-cwd {
+    font-size: 11px;
+  }
+
+  .status-error {
+    display: none;
+  }
+
+  .status-left {
+    display: none;
+  }
+
+  .status-right {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* truncate long model strings in the status bar */
+  .status-right .status-model {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .status-right .status-name,
+  .status-right .status-mode,
+  .status-right .status-thinking {
+    display: none;
+  }
+
+  /* ── Slash menu ────────────────────────────── */
+  .slash-menu {
+    margin: 0 0.5rem;
+    max-height: 200px;
+  }
+
+  .slash-item {
+    padding: 0.2rem 0.4rem;
+    gap: 0.4rem;
+  }
+
+  .slash-item .desc {
+    font-size: 12px;
+  }
+
+  /* ── Modal — full-screen sheet ─────────────── */
+  .modal-backdrop {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .modal {
+    width: 100%;
+    max-height: 100vh;
+    border: none;
+  }
+
+  .modal-header {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .modal-search {
+    font-size: 13px;
+  }
+
+  .modal-title {
+    font-size: 11px;
+  }
+
+  .session-row {
+    padding: 0.3rem 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .session-meta {
+    font-size: 11px;
+  }
+
+  .session-cwd {
+    font-size: 11px;
+  }
+
+  .modal-confirm-message {
+    padding: 0.5rem;
+  }
+
+  .modal-confirm-buttons {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .modal-empty {
+    padding: 0.4rem;
+  }
+
+  /* ── Ext custom overlay ────────────────────── */
+  .ext-custom-surface {
+    max-width: 95vw;
+    max-height: 90vh;
+    padding: 0.5rem;
+  }
+
+  .ext-custom-output {
+    font-size: 12px;
+  }
+
+  /* ── Toast ──────────────────────────────────── */
+  .toast-layer {
+    right: 0.4rem;
+    top: 0.4rem;
+    gap: 0.3rem;
+  }
+
+  .toast {
+    min-width: 160px;
+    max-width: 280px;
+    font-size: 12px;
+    padding: 0.3rem 0.5rem;
+  }
+}
