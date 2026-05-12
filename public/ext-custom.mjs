@@ -3,16 +3,49 @@
 // terminal escape sequences so the component's `handleInput(data)` sees the
 // same input it would on a real TTY.
 //
-// Only legacy escape sequences are emitted (no Kitty CSI-u). The components
-// pi-webui currently needs to support (guardrails permission-gate, path-
-// access) recognise these in their `matchesKey` calls. If we later need
-// modifier-rich keys we'll layer on Kitty encoding.
+// On mobile, an on-screen toolbar sends the same escape sequences via touch
+// so TUI components that expect keyboard navigation (e.g. the ask-user-
+// question questionnaire) work without a physical keyboard.
 
 import { ansiToHtml } from "./ansi.mjs";
+
+// Key → terminal escape sequence — mirrors encodeKey() below but doesn't
+// need a real KeyboardEvent, so the touch toolbar can dispatch directly.
+function keyToSeq(key, shiftKey) {
+  switch (key) {
+    case "Enter": return "\r";
+    case "Escape": return "\x1b";
+    case "Tab": return shiftKey ? "\x1b[Z" : "\t";
+    case "Backspace": return "\x7f";
+    case "Delete": return "\x1b[3~";
+    case "ArrowUp": return "\x1b[A";
+    case "ArrowDown": return "\x1b[B";
+    case "ArrowRight": return "\x1b[C";
+    case "ArrowLeft": return "\x1b[D";
+    case "Home": return "\x1b[H";
+    case "End": return "\x1b[F";
+    case "PageUp": return "\x1b[5~";
+    case "PageDown": return "\x1b[6~";
+    case " ": return " ";
+    default: return key.length === 1 ? key : null;
+  }
+}
+
+// Toolbar buttons for touch/mobile navigation. Each entry maps a visible
+// label to the key it simulates and an optional `title` for screen-readers.
+const TOOLBAR_KEYS = [
+  { label: "\u25B2", key: "ArrowUp", title: "Up" },
+  { label: "\u25BC", key: "ArrowDown", title: "Down" },
+  { label: "\u23CE", key: "Enter", title: "Select / Enter" },
+  { label: "\u2423", key: " ", title: "Space (toggle)" },
+  { label: "\u21E5", key: "Tab", title: "Tab (next question)" },
+  { label: "\u2715", key: "Escape", title: "Cancel / Escape" },
+];
 
 export function createCustomOverlayHost({ root, send }) {
   let backdrop = null;
   let pre = null;
+  let toolbar = null;
   let activeId = null;
 
   function ensureDom() {
@@ -20,15 +53,44 @@ export function createCustomOverlayHost({ root, send }) {
     backdrop = document.createElement("div");
     backdrop.className = "ext-custom-backdrop";
     backdrop.tabIndex = -1;
+
     const surface = document.createElement("div");
     surface.className = "ext-custom-surface";
+
     pre = document.createElement("pre");
     pre.className = "ext-custom-output";
     surface.appendChild(pre);
+
+    toolbar = document.createElement("div");
+    toolbar.className = "ext-custom-toolbar";
+    for (const btn of TOOLBAR_KEYS) {
+      const el = document.createElement("button");
+      el.className = "ext-custom-toolbar-key";
+      el.textContent = btn.label;
+      el.title = btn.title || btn.label;
+      el.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        sendKey(btn.key);
+      });
+      toolbar.appendChild(el);
+    }
+    surface.appendChild(toolbar);
+
     backdrop.appendChild(surface);
     backdrop.hidden = true;
     backdrop.addEventListener("keydown", onKey);
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) sendKey("Escape");
+    });
     root.appendChild(backdrop);
+  }
+
+  function sendKey(key) {
+    if (activeId === null) return;
+    const data = keyToSeq(key, false);
+    if (data !== null) {
+      send({ type: "ext_ui_custom_input", payload: { id: activeId, data } });
+    }
   }
 
   function open({ id, lines }) {

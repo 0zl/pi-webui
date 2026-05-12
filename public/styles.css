@@ -862,6 +862,27 @@ body.drag-active .composer-wrapper {
   color: var(--text);
 }
 
+/* On-screen touch toolbar for mobile (hidden on desktop).
+   The toolbar uses pointerdown for immediate feedback on touch
+   devices — no 300 ms delay, no double-tap zoom interference. */
+.ext-custom-toolbar {
+  display: none;
+}
+
+.ext-custom-toolbar-key {
+  all: unset;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ext-custom-toolbar-key:active {
+  opacity: 0.6;
+}
+
 .modal-prompt-input {
   width: 100%;
   padding: 0.5rem 0.6rem;

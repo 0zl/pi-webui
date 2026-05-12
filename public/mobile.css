@@ -251,13 +251,49 @@
 
   /* ── Ext custom overlay ────────────────────── */
   .ext-custom-surface {
-    max-width: 95vw;
-    max-height: 90vh;
-    padding: 0.5rem;
+    max-width: 100vw;
+    max-height: 95dvh;
+    max-height: 95vh;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .ext-custom-output {
     font-size: 12px;
+    flex: 1;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Touch navigation toolbar — visible only on small screens */
+  .ext-custom-toolbar {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    padding: 0.35rem 0.25rem 0.15rem;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .ext-custom-toolbar-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: background 0.1s;
+  }
+
+  .ext-custom-toolbar-key:active {
+    background: var(--accent);
+    color: var(--bg);
   }
 
   /* ── Toast ──────────────────────────────────── */
